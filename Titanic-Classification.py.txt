@@ -1,0 +1,31 @@
+# Import necessary libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Load the Titanic dataset
+train_data = pd.read_csv("train.csv")
+test_data = pd.read_csv("test.csv")
+
+# Preprocess the data
+# Here, you would handle missing values, convert categorical features, etc.
+
+# Select relevant features (socio-economic status, age, gender) for model training
+features = ["Pclass", "Age", "Sex"]
+X = train_data[features]
+y = train_data["Survived"]
+
+# Split the data into training and validation sets
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a logistic regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Predict on the validation set
+y_pred = model.predict(X_valid)
+
+# Evaluate the model's performance
+accuracy = accuracy_score(y_valid, y_pred)
+print("Accuracy:", accuracy)
